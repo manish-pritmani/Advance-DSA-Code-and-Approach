@@ -2,8 +2,6 @@
 
 // Approach - the fundamental no. that is prime is 2 ("10") and 3("11") if any no. contains this two cominations as 0 or 1 after 1, it will be prime containing binary string. So run a loop 1 char before the string length and seach if '1' is found if found print "YES" else "NO"
 
-
-
 #include<iostream>
 using namespace std;
 
