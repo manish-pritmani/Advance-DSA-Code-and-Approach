@@ -1,4 +1,4 @@
-Inbuilt Dynamic Array is a Vector
+**Inbuilt Dynamic Array is a Vector**
 1. Double its size when space is less.
 
 Header File
