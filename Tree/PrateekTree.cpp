@@ -1,6 +1,9 @@
 #include <iostream>
 #include <fstream>
 #include <queue>
+// utility is used to form pair<node*,int>
+#include<utility>
+
 using namespace std;
 
 //tree structure
@@ -109,6 +112,27 @@ void bfs(node* root){
   }
 }
 
+// Approach 1 - BFS using queue - Level order printing
+void bfsApproach1(node* root){
+  queue<pair<node*,int>> q;
+  q.push(make_pair(root,1));
+  while(!q.empty()){
+    node* front = q.front().first;
+    int currentLevel = q.front().second;
+    cout<<front->data<<" ";
+    q.pop();
+    if(q.front().second>currentLevel || q.empty()){
+      cout<<endl;
+    }
+    if(front->left){
+      q.push(make_pair(front->left,currentLevel+1));
+    }
+    if(front->right){
+      q.push(make_pair(front->right,currentLevel+1));
+    }
+  }
+}
+
 int main(){
   int hTree = 0;
 // level integer
@@ -134,7 +158,7 @@ int main(){
   levelOrder(root,hTree);
   cout<<endl;
   cout<<"BFS : ";
-  bfs(root);
+  bfsApproach1(root);
 
 
 
