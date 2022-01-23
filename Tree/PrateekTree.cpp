@@ -1,5 +1,6 @@
 #include <iostream>
 #include <fstream>
+#include <queue>
 using namespace std;
 
 //tree structure
@@ -91,21 +92,37 @@ void levelOrder(node* root,int hTree){
   }
 }
 
+// BFS using queue - Level order traversal
+void bfs(node* root){
+  queue<node*> q;
+  q.push(root);
+  while(!q.empty()){
+    node* front = q.front();
+    cout<<front->data<<" ";
+    q.pop();
+    if(front->left){
+      q.push(front->left);
+    }
+    if(front->right){
+      q.push(front->right);
+    }
+  }
+}
 
 int main(){
   int hTree = 0;
 // level integer
   int k=3;
   
-  // 3 4 -1 6 -1 -1 5 1 -1 -1 -1
+// 3 4 -1 6 -1 -1 5 1 -1 -1 -1
   node* root = buildTree();
-  // pre order traversal
+// pre order traversal
   printTree(root);
   cout<<endl;
-  // post order traversal
+// post order traversal
   postOrder(root);
   cout<<endl;
-  // Inorder traversal
+// Inorder traversal
   inOrder(root);
   cout<<endl;
   hTree = height(root);
@@ -115,4 +132,13 @@ int main(){
   cout<<endl;
   cout<<"Level Order";
   levelOrder(root,hTree);
+  cout<<endl;
+  cout<<"BFS : ";
+  bfs(root);
+
+
+
+
+
+  return 0;
 }
