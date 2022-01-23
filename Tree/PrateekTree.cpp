@@ -83,6 +83,7 @@ void kthLevel(node* root,int k){
 
 // recursive level order without queue
 // level order = kth level print + height of tree concept.
+// Time complexity = O(n2)
 void levelOrder(node* root,int hTree){
   for(int i=0;i<=hTree;i++){
     kthLevel(root,i);
