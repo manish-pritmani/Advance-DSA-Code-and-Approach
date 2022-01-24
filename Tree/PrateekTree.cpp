@@ -241,6 +241,42 @@ node* invertTree(node* root){
   return root;
 }
 
+// To check if tree is balanced or not.
+// pair.first = height, pair.second = boolean for balance check.
+pair<int,bool> isBalanced(node* root){
+  pair<int,bool> p;
+  // Base case
+  if(root == nullptr){
+    p.first = 0;
+    p.second = true;
+    return p;
+  }
+  // Recursive Case
+  pair<int,bool> left = isBalanced(root->left);
+  pair<int,bool> right = isBalanced(root->right);
+
+  // current node info updation.
+  p.first = max(left.first,right.first)+1;
+  // current node balance info updation.
+  if(abs(left.first - right.first)<=1 && left.second && right.second){
+    p.second = true;
+  }else{
+    p.second = false;
+  }
+  return p;
+}
+
+node* buildArrayTree(int arr[],int start, int end){
+  if(end>start){
+    return NULL;
+  }
+  int mid = (start + end)/2;
+  node* root = new node(mid);
+  root->left = buildArrayTree(arr,start,mid-1);
+  root->right = buildArrayTree(arr,mid+1,end);
+  return root;
+}
+
 // Main Function
 int main(){
   int hTree = 0;
@@ -263,20 +299,49 @@ int main(){
   cout<<endl;
   kthLevel(root,k);
   cout<<endl;
-  cout<<"Level Order";
-  levelOrder(root,hTree);
+  // cout<<"Level Order";
+  // levelOrder(root,hTree);
   cout<<endl;
   cout<<"BFS : "<<endl;
   bfsApp2(root);
   cout<<endl;
   cout<<"Number of nodes : "<<countNodes(root)<<endl;
-  cout<<"Sum of all nodes : "<<sumAllNode(root)<<endl;
-  cout<<"Sum of all nodes : "<<sumInAll(root,0)<<endl;
-  cout<<"Diameter of Tree : "<<diameterTree(root)<<endl;
-  cout<<"Height Better : "<<diameterTreeBetter(root).first<<endl;
-  cout<<"Diameter Better : "<<diameterTreeBetter(root).second<<endl;
+  // cout<<"Sum of all nodes : "<<sumAllNode(root)<<endl;
+  // cout<<"Sum of all nodes : "<<sumInAll(root,0)<<endl;
+  // cout<<"Diameter of Tree : "<<diameterTree(root)<<endl;
+  // cout<<"Height Better : "<<diameterTreeBetter(root).first<<endl;
+  // cout<<"Diameter Better : "<<diameterTreeBetter(root).second<<endl;
   // sumAllNodeChange(root);
-  invertTree(root);
+
+  // invert of binary tree
+  // invertTree(root);
+  
+  // optimised level order traversal with new line each level
   bfsApp2(root);
+  cout<<endl;
+  // check if tree is balanced or not
+  if(isBalanced(root).second){
+    cout<<"Balanced Tree";
+  }else{
+    cout<<"Not Balanced";
+  }
+
+  int a[]={1,2,3,4,5,6,7};
+  int n = 7;
+  
+  // node* fRoot = buildArrayTree(a,0,n-1);
+  bfsApp2(fRoot);
+
+
+  
   return 0;
 }
+
+
+
+
+
+
+
+// Notes Center -
+// 1. Balance tree always has height of O(log(n))
