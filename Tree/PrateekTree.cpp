@@ -65,6 +65,7 @@ void inOrder(node* root){
   inOrder(root->right);
 }
 
+// Height of the tree.
 int height(node* root){
   if(root==nullptr){
     return 0;
@@ -133,6 +134,7 @@ void bfsApproach1(node* root){
     }
   }
 }
+
 // BFS approach level order traversal with NULL conditions
 void bfsApp2(node* root){
   queue<node*> q;
@@ -169,6 +171,7 @@ int countNodes(node* root){
   return 1+leftCount+rightCount;
 }
 
+// Sum of all nodes values
 int sumAllNode(node* root){
   if(root == nullptr){
     return 0;
@@ -176,6 +179,7 @@ int sumAllNode(node* root){
   return root->data + sumAllNode(root->left)+sumAllNode(root->right);
 }
 
+// Sum of all nodes values
 int sumInAll(node* root,int sum){
   if(root==nullptr){
     sum = 0;
@@ -213,6 +217,31 @@ pair<int,int> diameterTreeBetter(node* root){
   return p;
 }
 
+// Problem - Change node value to sum of values of all it's decendants
+int sumAllNodeChange(node* root){
+  if(root==nullptr)
+    return 0;
+  if(root->left == nullptr && root->right == nullptr)
+    return root->data;
+  int temp = root->data;
+  root->data = sumAllNodeChange(root->left)+sumAllNodeChange(root->right);
+  return root->data + temp;
+}
+
+// TODO: DRY RUN 
+// Invert a Binary Tree
+node* invertTree(node* root){
+  if(root == nullptr){
+    return nullptr;
+  }  
+  node* right = invertTree(root->right);
+  node* left = invertTree(root->left);
+  root->left = right;
+  root->right = left;
+  return root;
+}
+
+// Main Function
 int main(){
   int hTree = 0;
 // level integer
@@ -246,5 +275,8 @@ int main(){
   cout<<"Diameter of Tree : "<<diameterTree(root)<<endl;
   cout<<"Height Better : "<<diameterTreeBetter(root).first<<endl;
   cout<<"Diameter Better : "<<diameterTreeBetter(root).second<<endl;
+  // sumAllNodeChange(root);
+  invertTree(root);
+  bfsApp2(root);
   return 0;
 }
