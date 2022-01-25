@@ -281,8 +281,22 @@ node* buildArrayTree(int *arr,int start, int end){
 
 // Create tree from In-order and Pre-order traversals.
 node* createFromInPre(int* in,int* pre,int start,int end){
-  node* root = new node(pre[0]);
-  
+  static int i = 0;
+  if(start>end){
+    return NULL;
+  }
+  node* root = new node(pre[i]);
+  int index = 0;
+  for(int j=start;j<=end;j++){
+    if(in[j] == pre[i]){
+      index = j;
+      break;
+    }
+  }
+  i=i+1;
+  root->left = createFromInPre(in,pre,start,index-1);
+  root->right = createFromInPre(in,pre,index+1,end);
+  return root;
 }
 
 // Main Function
@@ -340,7 +354,7 @@ int main(){
   
   node* fRoot = buildArrayTree(arr,0,n-1);
   bfsApp2(fRoot);
-
+  cout<<endl;
   int pre[] = {1,2,3,4,8,5,6,7};
   int in[] = {3,2,8,4,1,6,7,5};
   int size = sizeof(in)/sizeof(int);
@@ -350,13 +364,7 @@ int main(){
   return 0;
 }
 
-
-
-
-
-
-
-// Notes Center -
-// 1. Balance tree always has height of O(log(n))
-// 2. Skew tree is like linked list with single chain of nodes.
-// 
+/* Notes Center -
+ 1. Balance tree always has height of O(log(n))
+ 2. Skew tree is like linked list with single chain of nodes.
+*/
