@@ -311,6 +311,34 @@ void rightView(node* root,int level){
   rightView(root->left,level+1);
 }
 
+// Right View of Binary Tree - Iterative
+void rightViewIterative(node* root){
+  // node and its level
+  queue<node*> q;
+  q.push(root);
+  q.push(NULL);
+  while(!q.empty()){
+    if(q.front()==NULL){
+      q.pop();
+      if(!q.empty()){
+        q.push(NULL);
+      }
+      continue;
+    }
+    node* front = q.front();
+    q.pop();
+    if(q.front()==NULL){
+      cout<<front->data<<" ";
+    }
+    if(front->left){
+      q.push(front->left);
+    }
+    if(front->right){
+      q.push(front->right);
+    }
+  }
+}
+
 // Left View of Binary Tree - Recursive
 void leftView(node* root, int level){
   static int maxLevel = 0;
@@ -389,6 +417,9 @@ int main(){
   bfsApp2(cRoot);
   cout<<"Right View : ";
   rightView(root,1);
+  cout<<endl;
+  rightViewIterative(root);
+  cout<<endl;
   cout<<"Left View : ";
   leftView(root,1);
   return 0;
