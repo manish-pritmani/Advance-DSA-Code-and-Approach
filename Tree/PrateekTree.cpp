@@ -266,8 +266,7 @@ pair<int,bool> isBalanced(node* root){
   return p;
 }
 
-// given array build a tree from it.
-
+// Given array build a tree from it.
 node* buildArrayTree(int *arr,int start, int end){
   if(start>end){
     return NULL;
@@ -297,6 +296,33 @@ node* createFromInPre(int* in,int* pre,int start,int end){
   root->left = createFromInPre(in,pre,start,index-1);
   root->right = createFromInPre(in,pre,index+1,end);
   return root;
+}
+
+// Right View of Binary Tree - Recursive
+void rightView(node* root,int level){
+  static int maxLevel = 0;
+  if(root == nullptr)
+    return;
+  if(maxLevel<level){
+    cout<<root->data<<" ";
+    maxLevel = level;
+  }
+  rightView(root->right,level+1);
+  rightView(root->left,level+1);
+}
+
+// Left View of Binary Tree - Recursive
+void leftView(node* root, int level){
+  static int maxLevel = 0;
+  if(root == nullptr){
+    return;
+  }
+  if(maxLevel<level){
+    cout<<root->data<<" ";
+    maxLevel = level;
+  }
+  leftView(root->left,level+1);
+  leftView(root->right,level+1);
 }
 
 // Main Function
@@ -361,10 +387,16 @@ int main(){
   
   node* cRoot = createFromInPre(in,pre,0,size-1);
   bfsApp2(cRoot);
+  cout<<"Right View : ";
+  rightView(root,1);
+  cout<<"Left View : ";
+  leftView(root,1);
   return 0;
 }
 
 /* Notes Center -
  1. Balance tree always has height of O(log(n))
  2. Skew tree is like linked list with single chain of nodes.
+ 3. static int will be allocated only once in memory.
+
 */
