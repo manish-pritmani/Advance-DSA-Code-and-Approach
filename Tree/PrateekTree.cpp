@@ -266,15 +266,23 @@ pair<int,bool> isBalanced(node* root){
   return p;
 }
 
-node* buildArrayTree(int arr[],int start, int end){
-  if(end>start){
+// given array build a tree from it.
+
+node* buildArrayTree(int *arr,int start, int end){
+  if(start>end){
     return NULL;
   }
   int mid = (start + end)/2;
-  node* root = new node(mid);
+  node* root = new node(arr[mid]);
   root->left = buildArrayTree(arr,start,mid-1);
   root->right = buildArrayTree(arr,mid+1,end);
   return root;
+}
+
+// Create tree from In-order and Pre-order traversals.
+node* createFromInPre(int* in,int* pre,int start,int end){
+  node* root = new node(pre[0]);
+  
 }
 
 // Main Function
@@ -323,17 +331,22 @@ int main(){
   if(isBalanced(root).second){
     cout<<"Balanced Tree";
   }else{
-    cout<<"Not Balanced";
+    cout<<"Not Balanced"<<endl;
   }
-
-  int a[]={1,2,3,4,5,6,7};
+  
+// forming height balance binary tree.
+  int arr[]={1,2,3,4,5,6,7};
   int n = 7;
   
-  // node* fRoot = buildArrayTree(a,0,n-1);
+  node* fRoot = buildArrayTree(arr,0,n-1);
   bfsApp2(fRoot);
 
-
+  int pre[] = {1,2,3,4,8,5,6,7};
+  int in[] = {3,2,8,4,1,6,7,5};
+  int size = sizeof(in)/sizeof(int);
   
+  node* cRoot = createFromInPre(in,pre,0,size-1);
+  bfsApp2(cRoot);
   return 0;
 }
 
@@ -345,3 +358,5 @@ int main(){
 
 // Notes Center -
 // 1. Balance tree always has height of O(log(n))
+// 2. Skew tree is like linked list with single chain of nodes.
+// 
