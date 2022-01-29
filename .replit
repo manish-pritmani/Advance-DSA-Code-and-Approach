@@ -1,2 +1,2 @@
 language = "cpp"
-run = "g++ Tree/PrateekTree.cpp; cat Tree/input2| ./a.out;"
+run = "g++ LinkedList/LinkedList.cpp; ./a.out;"
