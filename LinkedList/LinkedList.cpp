@@ -129,15 +129,57 @@ void deleteAtPosition(node* &head,int position){
   }
 }
 
-// Search Element in Linked List.
-
+// Search Element in Linked List - O(n)
+// Even if Linked List is sorted finding the length for middle will take O(n) time.
+bool searchLink(node* head,int key){
+  if(head == nullptr){
+    return false;
+  }
+  
+}
 
 
 
 // Reverse a Linked List
 // Bad Approach 1 - swap first and last node then second and second last ..so on
-node* reverseLinkedList(node* head){
- 
+node* reverseLinkedList(node* &head){
+  node* prev = nullptr;
+  node* next = head->next;
+  node* curr = head;
+  while(curr!=nullptr){
+    next = curr->next;
+    curr->next = prev;
+    prev = curr;
+    curr = next;
+  }
+  head = prev;
+}
+
+node* reverseRec(node* head){
+  if(head == nullptr or head->next == nullptr){
+    return head;
+  }
+  node* sHead = reverseRec(head->next);
+  
+
+
+  
+}
+
+// Move last element to front of given linked list.
+void moveLastToFront(node* &head){
+  node* prev = head;
+  node* curr = head;
+  if(head == nullptr or head->next == nullptr){
+    return;    
+  }
+  while(curr->next!=nullptr){
+    prev = curr;
+    curr = curr->next;
+  }
+  prev->next = nullptr;
+  curr->next = head;
+  head = curr;
 }
 
 // Main Function
@@ -156,10 +198,15 @@ int main(){
   cout<<endl;
   int key = 3;
   if(searchLink(head,key)){
-    cout<<"Element Found";
+    cout<<"Element Found"<<endl;
   }else{
     cout<<"Not Found!";
   }
+  reverseLinkedList(head);
+  print(head);
+  cout<<endl;
+  moveLastToFront(head);
+  print(head);
 	return 0;
 }
 
