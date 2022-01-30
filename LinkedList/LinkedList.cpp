@@ -182,6 +182,33 @@ void moveLastToFront(node* &head){
   head = curr;
 }
 
+// Intersection of two sorted linked list.
+Node* findIntersection(Node* head1, Node* head2) {
+    if(head1== nullptr or head2 == nullptr){
+        return nullptr;
+    }
+    Node* tmp1 = head1;
+    Node* tmp2 = head2;
+    Node* dummy = new Node(-1);
+    Node* ans = dummy; //p3
+    Node* a = dummy;   //p4
+    while(tmp1!=nullptr and tmp2!=nullptr){
+        if(tmp1->data == tmp2->data){
+            a->next = tmp1;
+            tmp1 = tmp1->next;
+            tmp2 = tmp2->next;
+            a=a->next;
+        }
+        else if(tmp1->data>tmp2->data){
+            tmp2 = tmp2->next;     
+        }
+        else if (tmp1->data<tmp2->data){
+            tmp1 = tmp1->next;
+        }
+    }
+    return ans->next;
+}
+
 // Main Function
 int main(){
 	node* head = nullptr;

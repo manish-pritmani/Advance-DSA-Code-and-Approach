@@ -2,6 +2,12 @@
 #include <vector>
 using namespace std;
 
+// Moore Voting Algorithm
+int findMajor(int arr[], int n)
+
+
+
+
 // Kadane's Algorithm for Maximum Sum Contiguos Subarray - O(n)
 int maxSubArray(vector<int>& arr) {
   int curr = 0;
