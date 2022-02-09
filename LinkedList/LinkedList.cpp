@@ -155,15 +155,15 @@ node* reverseLinkedList(node* &head){
   head = prev;
 }
 
-node* reverseRec(node* head){
-  if(head == nullptr or head->next == nullptr){
+node* reverseRecr(node* head){
+  if(head->next == nullptr || head == nullptr){
     return head;
   }
-  node* sHead = reverseRec(head->next);
-  
-
-
-  
+  // reversed Link List here
+  node* sHead = reverseRecr(head->next);
+  head->next->next = head;
+  head->next = nullptr;
+  return sHead;  
 }
 
 // Move last element to front of given linked list.
@@ -183,15 +183,15 @@ void moveLastToFront(node* &head){
 }
 
 // Intersection of two sorted linked list.
-Node* findIntersection(Node* head1, Node* head2) {
+node* findIntersection(node* head1, node* head2) {
     if(head1== nullptr or head2 == nullptr){
         return nullptr;
     }
-    Node* tmp1 = head1;
-    Node* tmp2 = head2;
-    Node* dummy = new Node(-1);
-    Node* ans = dummy; //p3
-    Node* a = dummy;   //p4
+    node* tmp1 = head1;
+    node* tmp2 = head2;
+    node* dummy = new node(-1);
+    node* ans = dummy; //p3
+    node* a = dummy;   //p4
     while(tmp1!=nullptr and tmp2!=nullptr){
         if(tmp1->data == tmp2->data){
             a->next = tmp1;
@@ -233,6 +233,9 @@ int main(){
   print(head);
   cout<<endl;
   moveLastToFront(head);
+  print(head);
+  head = reverseRecr(head);
+  cout<<"\nRev "<<endl;
   print(head);
 	return 0;
 }

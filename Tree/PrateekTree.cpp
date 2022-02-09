@@ -113,6 +113,29 @@ void bfs(node* root){
   }
 }
 
+// Lowest Common Ancestor
+node* lca(node* root, int a, int b){
+  if(root == nullptr){
+    return nullptr;
+  }
+  if(root->data == a or root->data == b){
+    return root;
+  }
+  node* left = lca(root->left,a,b);
+  node* right = lca(root->right,a,b);
+
+  if(left!=nullptr and right!=nullptr){
+    return root;
+  }
+  if(left!=null){
+    return left;
+  }
+  return right;
+}
+
+
+
+
 // Approach 1 - BFS using queue - Level order printing
 // pair of node with it's level.
 void bfsApproach1(node* root){
@@ -351,6 +374,24 @@ void leftView(node* root, int level){
   }
   leftView(root->left,level+1);
   leftView(root->right,level+1);
+}
+
+// Tilt of a Binary Tree - Part 1
+int calculateTile(TreeNode* root, int &tile){
+  if(root == nullptr){
+      return 0;
+  }
+  int left = calculateTile(root->left,tile);
+  int right = calculateTile(root->right,tile);
+  tile = tile + abs(left-right);
+  return left + right + root->val;
+  
+}
+// Tile of a Binary Tree - Part 2
+int findTilt(TreeNode* root) {
+  int tile = 0;
+  calculateTile(root,tile);
+  return tile;
 }
 
 // Main Function

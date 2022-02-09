@@ -1,2 +1,2 @@
 language = "cpp"
-run = "g++ LinkedList/LinkedList.cpp; ./a.out;"
+run = "g++ DP/Dynamic.cpp; ./a.out;"
